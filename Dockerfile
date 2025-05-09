@@ -1,12 +1,13 @@
 # Pull a lightweight version of Ubuntu
-FROM maven:3.8.6-openjdk-17-slim AS base
+FROM maven:3.8.3-openjdk-17 AS base
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy the user service project files into the container
-COPY . /usr/src/app
+COPY pom.xml .
 
+COPY src ./src
 # Build the project using Maven
 RUN mvn clean package -Dmaven.test.skip=true
 
