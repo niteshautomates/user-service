@@ -1,0 +1,22 @@
+1.1  curl -o alb-ingress-controller-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.1/docs/install/iam_policy.json
+1.2  aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://alb-ingress-controller-policy.json
+2. eksctl create iamserviceaccount \
+  --cluster=<your-cluster-name> \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --attach-policy-arn=<your-iam-policy-arn> \
+  --override \
+  --service-account-role-arn
+
+  Replace:
+
+<your-cluster-name> with your EKS cluster's name.
+
+<your-iam-policy-arn> with the ARN of the IAM policy you made.
+
+3. kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller?ref=v1.7.1" \
+  --set clusterName=<your-cluster-name> \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller
