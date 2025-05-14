@@ -4,16 +4,16 @@ CREATE DATABASE IF NOT EXISTS userdb;
 -- Switch to the database
 USE userdb;
 
-CREATE USER 'admin'@'192.%.%' IDENTIFIED WITH caching_sha2_admin123 BY 'admin123';
+CREATE USER 'admin'@'192.168.77.210' IDENTIFIED WITH caching_sha2_admin123 BY 'admin123';
 
 -- Alter the user's authentication method to mysql_native_admin123
-ALTER USER 'admin'@'192.%.%' IDENTIFIED WITH caching_sha2_admin123 BY 'admin123';
+ALTER USER 'admin'@'192.168.77.210' IDENTIFIED WITH caching_sha2_admin123 BY 'admin123';
 --  Important:  Use '%' to allow connections from any host (including Docker containers).
 --  If you know the specific host, replace '%' with the hostname or IP address.
 --  For example,  'root'@'%'  or 'root'@'my-server-ip'.
 
 -- Grant all privileges on the database.
-GRANT ALL PRIVILEGES ON userdb.* TO 'admin'@'192.%.%';
+GRANT ALL PRIVILEGES ON userdb.* TO 'admin'@'192.168.77.210';
 FLUSH PRIVILEGES;
 
 -- Create the users table
