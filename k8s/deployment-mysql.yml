@@ -2,7 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: hotel-ratings  
 spec:
+  replicas: 5
   selector:
     matchLabels:
       app: mysql
@@ -16,7 +18,41 @@ spec:
         image: nitesh2611/mysql:17
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
+          requests:
+            memory: 128Mi
+            cpu: 100m
+
         ports:
         - containerPort: 3306
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-data
+      volumes:
+      - name: mysql-data
+        persistentVolumeClaim:
+          claimName: pvc    
+      env:
+      - name: MYSQL_DATABASE
+        valueFrom:
+          configMapKeyRef:
+            name: mysql-config
+            key: MYSQL_DATABASE
+      - name: MYSQL_USER
+        valueFrom:
+          secretKeyRef:
+            name: mysql-secret
+            key: MYSQL_USER
+      - name: MYSQL_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql-secret
+            key: MYSQL_PASSWORD
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql-secret
+            key: MYSQL_ROOT_PASSWORD
+      
+

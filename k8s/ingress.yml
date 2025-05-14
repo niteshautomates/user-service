@@ -1,15 +1,15 @@
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
   annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing # or internal
-    alb.ingress.kubernetes.io/target-type: ip       # or instance
-    # (Optional) Add other annotations as needed
+     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: www.user-service.com
+    http:
       paths:
       - path: /
         pathType: Prefix

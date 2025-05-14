@@ -2,7 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-service
+  namespace: hotel-ratings 
 spec:
+  replicas: 5
   selector:
     matchLabels:
       app: user-service-app
@@ -16,7 +18,20 @@ spec:
         image: nitesh2611/user-svc:17
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
+          requests:
+            memory: 128Mi
+            cpu: 100m
         ports:
         - containerPort: 8081
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysql:3306/userdb
+        - name: SPRING_DATASOURCE_USERNAME
+          value: admin
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD  
