@@ -1,4 +1,6 @@
-k8s network-policy:
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: user-service-network-policy
   namespace: hotel-ratings
   spec:
