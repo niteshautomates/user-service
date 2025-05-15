@@ -1,3 +1,7 @@
+-- Create pod with below commands create db and remvoe setting and reapply 
+-- command: ["mysqld"]
+--        args: ["--skip-grant-tables", "--skip-networking"]
+
 -- Create the database
 CREATE DATABASE IF NOT EXISTS userdb;
 
