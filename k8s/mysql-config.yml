@@ -4,4 +4,4 @@ metadata:
   name: mysql-config
   namespace: hotel-ratings 
 data:
-  MYSQL_DATABASE: "userdb"
+  MYSQL_DATABASE: userdb
