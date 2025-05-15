@@ -1,5 +1,5 @@
 # Pull a lightweight version of Ubuntu
-FROM --platform=arm64maven:3.8.3-openjdk-17 AS base
+FROM  maven:3.8.3-openjdk-17 AS base
 
 # Set the working directory in the container
 WORKDIR /app
